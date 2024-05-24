@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:15.7-alpine3.20
+    container_name: mail-db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+    volumes:
+      - ~/.docker-conf/postgres/data/:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - mail-service
+
+  broker:
+    image: rabbitmq:3.13.2-management-alpine
+    container_name: rabbitmq
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - RABBITMQ_DEFAULT_USER=$RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS=$RABBITMQ_DEFAULT_PASS
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    ports:
+      - "15672:15672"
+    networks:
+      - mail-service
+
+  answering-ms:
+    build: answering-service
+    container_name: answering-ms
+    restart: on-failure
+    env_file: .env
+    depends_on:
+      - postgres
+      - broker
+    ports:
+      - "8081:8081"
+    networks:
+      - mail-service
+
+networks:
+  mail-service:
+    driver: bridge
