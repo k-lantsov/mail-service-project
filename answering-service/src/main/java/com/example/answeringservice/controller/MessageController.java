@@ -1,7 +1,7 @@
 package com.example.answeringservice.controller;
 
 import com.example.answeringservice.rabbitmq.RabbitMQProducer;
-import com.example.answeringservice.controller.dto.NewMessageModel;
+import com.example.answeringservice.dto.NewMessageDto;
 import com.example.answeringservice.util.JsonConverter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,11 +32,11 @@ public class MessageController {
             @ApiResponse(responseCode = "200", description = "Successful message processing")
     })
     @PostMapping(value = "/send")
-    public ResponseEntity<String> send(@RequestBody @Valid NewMessageModel newMessageModel) {
-        log.info("Got new message /// unique_message={}", newMessageModel.getUniqueMessage());
-        String message = jsonConverter.serializeToJson(newMessageModel);
+    public ResponseEntity<String> send(@RequestBody @Valid NewMessageDto newMessageDto) {
+        log.info("Got new message /// unique_message={}", newMessageDto.getUniqueMessage());
+        String message = jsonConverter.serializeToJson(newMessageDto);
         rabbitMQProducer.sendMessage(message);
-        log.info("Message was processed /// unique_message={}", newMessageModel.getUniqueMessage());
+        log.info("Message was processed /// unique_message={}", newMessageDto.getUniqueMessage());
         return ResponseEntity.ok("Message was processed");
     }
 }

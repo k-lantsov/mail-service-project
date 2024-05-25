@@ -1,11 +1,11 @@
-package com.example.answeringservice.controller.dto;
+package com.example.answeringservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class NewMessageModel {
+public class NewMessageDto {
 
     @JsonProperty(value = "unique_message")
     @NotNull
