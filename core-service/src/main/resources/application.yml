@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
-    name: answering-service
+    name: core-service
 
   datasource:
     url: jdbc:postgresql://localhost:5432/mail
@@ -14,3 +14,6 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+
+  liquibase:
+    change-log: db/changelog/main-changelog.xml

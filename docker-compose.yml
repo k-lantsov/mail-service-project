@@ -47,6 +47,19 @@ services:
     networks:
       - mail-service
 
+  core-ms:
+    build: core-service
+    container_name: core-ms
+    restart: on-failure
+    env_file: .env
+    depends_on:
+      - postgres
+      - broker
+    ports:
+      - "8082:8082"
+    networks:
+      - mail-service
+
 networks:
   mail-service:
     driver: bridge
