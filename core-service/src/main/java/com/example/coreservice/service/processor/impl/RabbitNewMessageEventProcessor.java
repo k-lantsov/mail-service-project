@@ -51,7 +51,8 @@ public class RabbitNewMessageEventProcessor implements NewMessageEventProcessor 
                 .map(User::getEmail)
                 .toList();
         String messageText = constructMessageText(newMessageEvent, template);
-        return new MailEvent(newMessage.getId(), emails, messageText, file);
+        String fileType = file == null ? null : newMessageEvent.getFileType();
+        return new MailEvent(newMessage.getId(), emails, messageText, file, fileType);
     }
 
     private String constructMessageText(NewMessageEvent newMessageEvent, Template template) {

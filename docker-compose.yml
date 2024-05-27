@@ -61,6 +61,19 @@ services:
     networks:
       - mail-service
 
+  mail-ms:
+    build: mail-service
+    container_name: mail-ms
+    restart: on-failure
+    env_file: .env
+    depends_on:
+      - broker
+      - core-ms
+    ports:
+      - "8083:8083"
+    networks:
+      - mail-service
+
 networks:
   mail-service:
     driver: bridge

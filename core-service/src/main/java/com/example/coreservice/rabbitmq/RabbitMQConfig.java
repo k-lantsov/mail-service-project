@@ -21,6 +21,6 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue statusQueue() {
-        return new Queue("status-queue");
+        return new Queue("statuses-queue");
     }
 }

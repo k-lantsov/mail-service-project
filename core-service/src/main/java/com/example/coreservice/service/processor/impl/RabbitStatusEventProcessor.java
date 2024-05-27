@@ -18,5 +18,6 @@ public class RabbitStatusEventProcessor implements StatusEventProcessor {
     public void processEvent(StatusEvent statusEvent) {
         log.info("Status event was received /// message_id={}", statusEvent.messageId());
         messageService.updateMessageStatus(statusEvent);
+        log.info("Message status was updated /// message_id={}", statusEvent.messageId());
     }
 }
