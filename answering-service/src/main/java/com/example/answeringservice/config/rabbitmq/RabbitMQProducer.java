@@ -1,4 +1,4 @@
-package com.example.answeringservice.rabbitmq;
+package com.example.answeringservice.config.rabbitmq;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -10,7 +10,7 @@ public class RabbitMQProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void sendMessage(String message) {
-        rabbitTemplate.convertAndSend("newMessagesQueue", message);
+    public <T> void sendMessage(String routingKey, T t) {
+        rabbitTemplate.convertAndSend(routingKey, t);
     }
 }

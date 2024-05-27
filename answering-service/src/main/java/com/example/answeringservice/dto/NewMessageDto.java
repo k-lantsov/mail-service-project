@@ -33,5 +33,6 @@ public class NewMessageDto {
 
         @JsonProperty(value = "$day")
         private String day;
+
     }
 }

@@ -1,9 +1,9 @@
-package com.example.coreservice.model;
+package com.example.shared.model;
 
 import lombok.Data;
 
 @Data
-public class NewMessageModel {
+public class NewMessageEvent {
 
     private String uniqueMessage;
 
@@ -15,7 +15,7 @@ public class NewMessageModel {
 
     private String fileType;
 
-    private Tags tags;
+    private Tags data;
 
     @Data
     public static class Tags {

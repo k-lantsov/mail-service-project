@@ -1,4 +1,4 @@
-package com.example.answeringservice.exception;
+package com.example.shared.exception;
 
 public class SerializationException extends RuntimeException{
 

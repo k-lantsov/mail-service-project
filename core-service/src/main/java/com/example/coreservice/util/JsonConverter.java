@@ -1,6 +1,6 @@
 package com.example.coreservice.util;
 
-import com.example.coreservice.exception.SerializationException;
+import com.example.shared.exception.SerializationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

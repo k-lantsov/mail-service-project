@@ -1,0 +1,68 @@
+package com.example.coreservice.service.processor.impl;
+
+import com.example.coreservice.entity.Group;
+import com.example.coreservice.entity.Message;
+import com.example.coreservice.entity.Template;
+import com.example.coreservice.entity.User;
+import com.example.coreservice.rabbitmq.RabbitMQProducer;
+import com.example.coreservice.service.db.MessageService;
+import com.example.coreservice.service.processor.NewMessageEventProcessor;
+import com.example.shared.model.MailEvent;
+import com.example.shared.model.NewMessageEvent;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class RabbitNewMessageEventProcessor implements NewMessageEventProcessor {
+
+    private static final String MESSAGE_STATUS_INVALID = "INVALID";
+
+    private static final String DAY_TAG = "$day";
+    private final MessageService messageService;
+    private final RabbitMQProducer rabbitMQProducer;
+
+    @Override
+    public void processEvent(NewMessageEvent newMessageEvent) {
+        log.info("New message was received /// unique_message={}", newMessageEvent.getUniqueMessage());
+
+        Message newMessage = messageService.saveNewMessage(newMessageEvent);
+        log.info("New message was saved /// unique_message={}", newMessageEvent.getUniqueMessage());
+
+        if (MESSAGE_STATUS_INVALID.equals(newMessage.getMessageStatus())) {
+            return;
+        }
+
+        MailEvent mailEvent = createMailEvent(newMessage, newMessageEvent);
+        rabbitMQProducer.sendMessage("mails-queue", mailEvent);
+        log.info("MailEvent was sent /// message_id={}", mailEvent.messageId());
+    }
+
+    private MailEvent createMailEvent(Message newMessage, NewMessageEvent newMessageEvent) {
+        Template template = newMessage.getTemplate();
+        Group userGroup = newMessage.getGroup();
+        byte[] file = newMessage.getFile();
+        List<User> users = userGroup.getUsers();
+        List<String> emails = users.stream()
+                .map(User::getEmail)
+                .toList();
+        String messageText = constructMessageText(newMessageEvent, template);
+        return new MailEvent(newMessage.getId(), emails, messageText, file);
+    }
+
+    private String constructMessageText(NewMessageEvent newMessageEvent, Template template) {
+        NewMessageEvent.Tags data = newMessageEvent.getData();
+        if (data == null) {
+            return template.getTemplateText();
+        }
+        String messageText = template.getTemplateText();
+        if (data.getDay() != null) {
+            messageText = messageText.replace(DAY_TAG, data.getDay());
+        }
+        return messageText;
+    }
+}

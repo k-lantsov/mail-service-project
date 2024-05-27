@@ -10,7 +10,7 @@ public class RabbitMQProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void sendMessage(String message) {
-        rabbitTemplate.convertAndSend("processedMessagesQueue", message);
+    public <T> void sendMessage(String routingKey, T t) {
+        rabbitTemplate.convertAndSend(routingKey, t);
     }
 }
