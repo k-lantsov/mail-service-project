@@ -9,6 +9,7 @@ import com.example.coreservice.service.db.MessageService;
 import com.example.coreservice.service.processor.NewMessageEventProcessor;
 import com.example.shared.model.MailEvent;
 import com.example.shared.model.NewMessageEvent;
+import com.example.shared.model.Tags;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class RabbitNewMessageEventProcessor implements NewMessageEventProcessor 
     }
 
     private String constructMessageText(NewMessageEvent newMessageEvent, Template template) {
-        NewMessageEvent.Tags data = newMessageEvent.getData();
+        Tags data = newMessageEvent.getData();
         if (data == null) {
             return template.getTemplateText();
         }

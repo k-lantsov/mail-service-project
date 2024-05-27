@@ -1,11 +1,8 @@
 package com.example.shared.model;
 
-import lombok.Data;
-
-@Data
 public class NewMessageEvent {
 
-    private String uniqueMessage;
+    private  String uniqueMessage;
 
     private Long userGroup;
 
@@ -17,9 +14,63 @@ public class NewMessageEvent {
 
     private Tags data;
 
-    @Data
-    public static class Tags {
+    public NewMessageEvent() {
+    }
 
-        private String day;
+    public NewMessageEvent(String uniqueMessage, Long userGroup, Long templateId, String file, String fileType, Tags data) {
+        this.uniqueMessage = uniqueMessage;
+        this.userGroup = userGroup;
+        this.templateId = templateId;
+        this.file = file;
+        this.fileType = fileType;
+        this.data = data;
+    }
+
+    public String getUniqueMessage() {
+        return uniqueMessage;
+    }
+
+    public void setUniqueMessage(String uniqueMessage) {
+        this.uniqueMessage = uniqueMessage;
+    }
+
+    public Long getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(Long userGroup) {
+        this.userGroup = userGroup;
+    }
+
+    public Long getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public Tags getData() {
+        return data;
+    }
+
+    public void setData(Tags data) {
+        this.data = data;
     }
 }
