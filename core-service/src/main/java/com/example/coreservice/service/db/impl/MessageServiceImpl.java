@@ -77,6 +77,8 @@ public class MessageServiceImpl implements MessageService {
         Message message = messageRepository.findById(statusEvent.messageId())
                 .orElseThrow(() -> new NoDataException("Message not found by id=" + statusEvent.messageId()));
         message.setMessageStatus(statusEvent.status());
+        message.setErrorDescription(statusEvent.errorDescription());
+        message.setUpdated(LocalDateTime.now());
     }
 
     private Message checkFileAndSaveMessage(NewMessageEvent newMessageEvent, Template template, Group userGroup) {

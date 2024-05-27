@@ -1,5 +1,6 @@
 package com.example.answeringservice.controller;
 
+import com.example.shared.exception.NoDataException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -24,6 +25,12 @@ public class CustomExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(NoDataException.class)
+    public ResponseEntity<String> handleNoDataException(NoDataException e) {
+        log.error(e.getMessage());
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
