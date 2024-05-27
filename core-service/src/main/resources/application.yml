@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   application:
@@ -12,7 +12,7 @@ spring:
 
   rabbitmq:
     host: localhost
-    port: 15672
+    port: 5672
     username: user
     password: pass
 
@@ -20,6 +20,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        hbm2ddl:
+          auto: validate
     show-sql: true
 
   liquibase:

@@ -1,4 +1,4 @@
-package com.example.mailservice.config.rabbitmq;
+package com.example.mailservice.rabbitmq;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

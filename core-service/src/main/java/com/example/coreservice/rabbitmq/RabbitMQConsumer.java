@@ -17,7 +17,7 @@ public class RabbitMQConsumer {
     private final NewMessageEventProcessor newMessageEventProcessor;
     private final StatusEventProcessor statusEventProcessor;
 
-    @RabbitListener(queues = "new-messages-queue")
+    @RabbitListener(queues = "new-message-queue")
     public void receiveNewMessageEvent(String message) {
         NewMessageEvent newMessageEvent = jsonConverter.deserializeFromJson(message, NewMessageEvent.class);
         newMessageEventProcessor.processEvent(newMessageEvent);

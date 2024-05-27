@@ -1,4 +1,4 @@
-package com.example.mailservice.config.rabbitmq;
+package com.example.mailservice.rabbitmq;
 
 import com.example.mailservice.service.MailService;
 import com.example.mailservice.util.JsonConverter;
@@ -14,7 +14,7 @@ public class RabbitMQConsumer {
     private final JsonConverter jsonConverter;
     private final MailService mailService;
 
-    @RabbitListener(queues = "mails-queue")
+    @RabbitListener(queues = "mail-queue")
     public void receiveMailEvent(String message) {
         MailEvent mailEvent = jsonConverter.deserializeFromJson(message, MailEvent.class);
         if (mailEvent.file() == null) {

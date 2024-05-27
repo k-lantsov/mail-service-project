@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/messages")
 public class MessageController {
-    private static final String NEW_MESSAGES_QUEUE_NAME = "new-messages-queue";
 
     private final MessageConverter messageConverter;
     private final RabbitMQProducer rabbitMQProducer;
@@ -37,7 +36,7 @@ public class MessageController {
     public ResponseEntity<String> send(@RequestBody @Valid NewMessageDto newMessageDto) {
         log.info("Got new message /// unique_message={}", newMessageDto.getUniqueMessage());
         NewMessageEvent newMessageEvent = messageConverter.convertNewMessageDtoToNewMessageEvent(newMessageDto);
-        rabbitMQProducer.sendMessage(NEW_MESSAGES_QUEUE_NAME, newMessageEvent);
+        rabbitMQProducer.sendMessage("new-message-queue", newMessageEvent);
         log.info("Message was processed /// unique_message={}", newMessageEvent.getUniqueMessage());
         return ResponseEntity.ok("Message was processed");
     }

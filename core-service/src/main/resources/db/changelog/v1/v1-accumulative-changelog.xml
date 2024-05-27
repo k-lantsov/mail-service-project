@@ -9,5 +9,6 @@
     <include file="2024-05-26-create-template-table.xml" relativeToChangelogFile="true"/>
     <include file="2024-05-26-create-file_type-table.xml" relativeToChangelogFile="true"/>
     <include file="2024-05-26-create-message-table.xml" relativeToChangelogFile="true"/>
+    <include file="2024-05-27-insert-data.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

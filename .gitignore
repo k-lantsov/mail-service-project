@@ -1,7 +1,7 @@
 .idea
-answering-service/target
-core-service/target
-shared/target
-mail-service/target
+answering-service/target/
+core-service/target/
+mail-service/target/
+shared/target/
 core-service/core-service.iml
 answering-service/answering-service.iml

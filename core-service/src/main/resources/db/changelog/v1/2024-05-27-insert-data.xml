@@ -1,0 +1,41 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2024-05-27-insert-user-table" author="kostialantsov">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="user"/>
+        </preConditions>
+        <sqlFile path="db/data/insert-user.sql"/>
+    </changeSet>
+
+    <changeSet id="2024-05-27-insert-group-table" author="kostialantsov">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="group"/>
+        </preConditions>
+        <sqlFile path="db/data/insert-group.sql"/>
+    </changeSet>
+
+    <changeSet id="2024-05-27-insert-user_group-table" author="kostialantsov">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="user_group"/>
+        </preConditions>
+        <sqlFile path="db/data/insert-user_group.sql"/>
+    </changeSet>
+
+    <changeSet id="2024-05-27-insert-file_type-table" author="kostialantsov">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="file_type"/>
+        </preConditions>
+        <sqlFile path="db/data/insert-file_type.sql"/>
+    </changeSet>
+
+    <changeSet id="2024-05-27-template-table" author="kostialantsov">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="template"/>
+        </preConditions>
+        <sqlFile path="db/data/insert-template.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

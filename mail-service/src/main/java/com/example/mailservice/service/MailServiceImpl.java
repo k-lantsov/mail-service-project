@@ -1,6 +1,6 @@
 package com.example.mailservice.service;
 
-import com.example.mailservice.config.rabbitmq.RabbitMQProducer;
+import com.example.mailservice.rabbitmq.RabbitMQProducer;
 import com.example.shared.model.MailEvent;
 import com.example.shared.model.StatusEvent;
 import jakarta.mail.MessagingException;
@@ -50,11 +50,11 @@ public class MailServiceImpl implements MailService{
             javaMailSender.send(mailMessage);
             log.info("Email was successfully sent /// message_id={}", mailEvent.messageId());
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), OK_STATUS, OK_ERROR_DESC);
-            rabbitMQProducer.sendMessage("statuses-queue", statusEvent);
+            rabbitMQProducer.sendMessage("status-queue", statusEvent);
         } catch (MailException e) {
             log.error("Email wasn't sent /// message_id=" + mailEvent.messageId(), e);
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), SENDING_ERROR_STATUS, SENDING_ERROR_DESC);
-            rabbitMQProducer.sendMessage("statuses-queue", statusEvent);
+            rabbitMQProducer.sendMessage("status-queue", statusEvent);
         }
     }
 
@@ -78,15 +78,15 @@ public class MailServiceImpl implements MailService{
 
             log.info("Email was successfully sent /// message_id={}", mailEvent.messageId());
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), OK_STATUS, OK_ERROR_DESC);
-            rabbitMQProducer.sendMessage("statuses-queue", statusEvent);
+            rabbitMQProducer.sendMessage("status-queue", statusEvent);
         } catch (MessagingException e) {
             log.error("Email wasn't sent /// message_id=" + mailEvent.messageId(), e);
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), SENDING_ERROR_STATUS, SENDING_ERROR_DESC);
-            rabbitMQProducer.sendMessage("statuses-queue", statusEvent);
+            rabbitMQProducer.sendMessage("status-queue", statusEvent);
         } catch (IOException e) {
             log.error("Email wasn't sent /// message_id=" + mailEvent.messageId(), e);
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), FILE_ERROR_STATUS, FILE_ERROR_DESC);
-            rabbitMQProducer.sendMessage("statuses-queue", statusEvent);
+            rabbitMQProducer.sendMessage("status-queue", statusEvent);
         }
     }
 

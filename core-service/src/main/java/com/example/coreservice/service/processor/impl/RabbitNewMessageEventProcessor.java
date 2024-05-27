@@ -38,7 +38,7 @@ public class RabbitNewMessageEventProcessor implements NewMessageEventProcessor 
         }
 
         MailEvent mailEvent = createMailEvent(newMessage, newMessageEvent);
-        rabbitMQProducer.sendMessage("mails-queue", mailEvent);
+        rabbitMQProducer.sendMessage("mail-queue", mailEvent);
         log.info("MailEvent was sent /// message_id={}", mailEvent.messageId());
     }
 
