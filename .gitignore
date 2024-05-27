@@ -3,3 +3,4 @@ answering-service/target
 core-service/target
 shared/target
 core-service/core-service.iml
+mail-service/target
