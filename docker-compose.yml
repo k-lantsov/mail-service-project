@@ -35,7 +35,7 @@ services:
     image: core-ms:1.0.1
     build: core-service
     container_name: core-ms
-    restart: on-failure
+    restart: unless-stopped
     env_file: .env
     depends_on:
       - postgres
@@ -53,7 +53,7 @@ services:
     image: answering-ms:1.0.1
     build: answering-service
     container_name: answering-ms
-    restart: on-failure
+    restart: unless-stopped
     env_file: .env
     depends_on:
       - postgres
@@ -72,7 +72,7 @@ services:
     image: mail-ms:1.0.1
     build: mail-service
     container_name: mail-ms
-    restart: on-failure
+    restart: unless-stopped
     env_file: .env
     depends_on:
       - broker
