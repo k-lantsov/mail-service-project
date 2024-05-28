@@ -3,13 +3,11 @@ package com.example.mailservice.service;
 import com.example.mailservice.config.rabbitmq.RabbitMQProducer;
 import com.example.mailservice.model.broker.MailEvent;
 import com.example.mailservice.model.broker.StatusEvent;
-import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -31,6 +29,7 @@ public class MailServiceImpl implements MailService{
     private static final String SENDING_ERROR_DESC = "Failed to send email";
     private static final String FILE_ERROR_STATUS = "FILE_ERROR";
     private static final String FILE_ERROR_DESC = "Failed to create file from the content";
+    private static final String ROUTING_KEY = "status-queue";
 
     private final JavaMailSender javaMailSender;
     private final RabbitMQProducer rabbitMQProducer;
@@ -50,11 +49,11 @@ public class MailServiceImpl implements MailService{
             javaMailSender.send(mailMessage);
             log.info("Email was successfully sent /// message_id={}", mailEvent.messageId());
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), OK_STATUS, OK_ERROR_DESC);
-            rabbitMQProducer.sendMessage("status-queue", statusEvent);
-        } catch (MailException e) {
+            rabbitMQProducer.sendMessage(ROUTING_KEY, statusEvent);
+        } catch (Exception e) {
             log.error("Email wasn't sent /// message_id=" + mailEvent.messageId(), e);
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), SENDING_ERROR_STATUS, SENDING_ERROR_DESC);
-            rabbitMQProducer.sendMessage("status-queue", statusEvent);
+            rabbitMQProducer.sendMessage(ROUTING_KEY, statusEvent);
         }
     }
 
@@ -78,15 +77,15 @@ public class MailServiceImpl implements MailService{
 
             log.info("Email was successfully sent /// message_id={}", mailEvent.messageId());
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), OK_STATUS, OK_ERROR_DESC);
-            rabbitMQProducer.sendMessage("status-queue", statusEvent);
-        } catch (MessagingException e) {
-            log.error("Email wasn't sent /// message_id=" + mailEvent.messageId(), e);
-            StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), SENDING_ERROR_STATUS, SENDING_ERROR_DESC);
-            rabbitMQProducer.sendMessage("status-queue", statusEvent);
+            rabbitMQProducer.sendMessage(ROUTING_KEY, statusEvent);
         } catch (IOException e) {
             log.error("Email wasn't sent /// message_id=" + mailEvent.messageId(), e);
             StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), FILE_ERROR_STATUS, FILE_ERROR_DESC);
-            rabbitMQProducer.sendMessage("status-queue", statusEvent);
+            rabbitMQProducer.sendMessage(ROUTING_KEY, statusEvent);
+        } catch (Exception e) {
+            log.error("Email wasn't sent /// message_id=" + mailEvent.messageId(), e);
+            StatusEvent statusEvent = new StatusEvent(mailEvent.messageId(), SENDING_ERROR_STATUS, SENDING_ERROR_DESC);
+            rabbitMQProducer.sendMessage(ROUTING_KEY, statusEvent);
         }
     }
 
