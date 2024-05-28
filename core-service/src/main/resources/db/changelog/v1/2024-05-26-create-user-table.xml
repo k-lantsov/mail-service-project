@@ -6,10 +6,10 @@
     <changeSet id="create-user-table" author="kostialantsov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="user"/>
+                <tableExists tableName="users"/>
             </not>
         </preConditions>
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -24,7 +24,7 @@
 
     <changeSet id="drop-user-table" author="kostialantsov">
         <rollback>
-            <dropTable tableName="user"/>
+            <dropTable tableName="users"/>
         </rollback>
     </changeSet>
 

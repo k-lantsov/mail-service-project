@@ -93,6 +93,7 @@ public class MailServiceImpl implements MailService{
     private File createFile(MailEvent mailEvent) throws IOException {
         File file = File.createTempFile("file", mailEvent.fileType());
         try (FileOutputStream outputStream = new FileOutputStream(file)) {
+
             outputStream.write(mailEvent.file());
         }
         return file;

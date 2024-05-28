@@ -4,26 +4,26 @@ public class NewMessageEvent {
 
     private  String uniqueMessage;
 
-    private Long userGroup;
+    private long userGroup;
 
-    private Long templateId;
+    private long templateId;
 
     private String file;
 
     private String fileType;
 
-    private Tags data;
+    private Tags tags;
 
     public NewMessageEvent() {
     }
 
-    public NewMessageEvent(String uniqueMessage, Long userGroup, Long templateId, String file, String fileType, Tags data) {
+    public NewMessageEvent(String uniqueMessage, Long userGroup, Long templateId, String file, String fileType, Tags tags) {
         this.uniqueMessage = uniqueMessage;
         this.userGroup = userGroup;
         this.templateId = templateId;
         this.file = file;
         this.fileType = fileType;
-        this.data = data;
+        this.tags = tags;
     }
 
     public String getUniqueMessage() {
@@ -66,11 +66,11 @@ public class NewMessageEvent {
         this.fileType = fileType;
     }
 
-    public Tags getData() {
-        return data;
+    public Tags getTags() {
+        return tags;
     }
 
-    public void setData(Tags data) {
-        this.data = data;
+    public void setTags(Tags tags) {
+        this.tags = tags;
     }
 }

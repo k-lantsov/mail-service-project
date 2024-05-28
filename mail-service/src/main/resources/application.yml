@@ -15,10 +15,10 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: smtp.mail.sender.service@gmail.com
-    password: Jopa113!
+    password: ebgt fqda ehsy xyzo
     properties:
       mail:
         smtp:
           auth: true
           starttls:
-            enabled: true
+            required: true

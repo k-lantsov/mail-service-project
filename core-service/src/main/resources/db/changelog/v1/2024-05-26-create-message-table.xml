@@ -23,7 +23,7 @@
                 <constraints foreignKeyName="template_message_fk" referencedTableName="template" referencedColumnNames="id"/>
             </column>
             <column name="group_id" type="bigint">
-                <constraints foreignKeyName="group_message_fk" referencedTableName="group" referencedColumnNames="id"/>
+                <constraints foreignKeyName="group_message_fk" referencedTableName="groups" referencedColumnNames="id"/>
             </column>
             <column name="file" type="binary"/>
             <column name="created" type="datetime">
@@ -32,7 +32,7 @@
             <column name="updated" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="incoming_message_request" type="nvarchar(1000)">
+            <column name="incoming_message_request" type="text">
                 <constraints nullable="false"/>
             </column>
             <column name="error_description" type="nvarchar(100)"/>

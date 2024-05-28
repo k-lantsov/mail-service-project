@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 public class Group extends ParentEntity{
 
     @Column(name = "name")

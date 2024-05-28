@@ -1,9 +1,6 @@
 package com.example.coreservice.service.db.impl;
 
-import com.example.coreservice.entity.FileType;
-import com.example.coreservice.entity.Group;
-import com.example.coreservice.entity.Message;
-import com.example.coreservice.entity.Template;
+import com.example.coreservice.entity.*;
 import com.example.coreservice.repository.FileTypeRepository;
 import com.example.coreservice.repository.GroupRepository;
 import com.example.coreservice.repository.MessageRepository;
@@ -17,8 +14,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Base64;
 
 @RequiredArgsConstructor
 @Service
@@ -98,12 +95,13 @@ public class MessageServiceImpl implements MessageService {
                         .incomingMessageRequest(jsonConverter.serializeToJson(newMessageEvent))
                         .build();
             } else {
+                byte[] decodedFile = Base64.getDecoder().decode(newMessageEvent.getFile());
                 message = Message.builder()
                         .uniqueMessage(newMessageEvent.getUniqueMessage())
                         .messageStatus(MESSAGE_STATUS_IN_PROGRESS)
                         .template(template)
                         .group(userGroup)
-                        .file(newMessageEvent.getFile().getBytes(StandardCharsets.UTF_8))
+                        .file(decodedFile)
                         .created(LocalDateTime.now())
                         .updated(LocalDateTime.now())
                         .incomingMessageRequest(jsonConverter.serializeToJson(newMessageEvent))

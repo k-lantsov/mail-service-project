@@ -6,10 +6,10 @@
     <changeSet id="create-group-table" author="kostialantsov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="group"/>
+                <tableExists tableName="groups"/>
             </not>
         </preConditions>
-        <createTable tableName="group">
+        <createTable tableName="groups">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -21,7 +21,7 @@
 
     <changeSet id="drop-group-table" author="kostialantsov">
         <rollback>
-            <dropTable tableName="group"/>
+            <dropTable tableName="groups"/>
         </rollback>
     </changeSet>
 

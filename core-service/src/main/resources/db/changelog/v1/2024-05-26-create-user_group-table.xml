@@ -11,10 +11,10 @@
         </preConditions>
         <createTable tableName="user_group">
             <column name="user_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="user_group_fk" referencedTableName="user" referencedColumnNames="id"/>
+                <constraints nullable="false" foreignKeyName="user_group_fk" referencedTableName="users" referencedColumnNames="id"/>
             </column>
             <column name="group_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="group_user_fk" referencedTableName="group" referencedColumnNames="id"/>
+                <constraints nullable="false" foreignKeyName="group_user_fk" referencedTableName="groups" referencedColumnNames="id"/>
             </column>
         </createTable>
     </changeSet>

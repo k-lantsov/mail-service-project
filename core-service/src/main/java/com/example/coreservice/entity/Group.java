@@ -13,13 +13,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 public class Group extends ParentEntity{
 
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 

@@ -1,10 +1,9 @@
 package com.example.coreservice.service.processor.impl;
 
-import com.example.coreservice.entity.Group;
 import com.example.coreservice.entity.Message;
 import com.example.coreservice.entity.Template;
-import com.example.coreservice.entity.User;
 import com.example.coreservice.rabbitmq.RabbitMQProducer;
+import com.example.coreservice.repository.UserRepository;
 import com.example.coreservice.service.db.MessageService;
 import com.example.coreservice.service.processor.NewMessageEventProcessor;
 import com.example.shared.model.MailEvent;
@@ -25,6 +24,7 @@ public class RabbitNewMessageEventProcessor implements NewMessageEventProcessor 
 
     private static final String DAY_TAG = "$day";
     private final MessageService messageService;
+    private final UserRepository userRepository;
     private final RabbitMQProducer rabbitMQProducer;
 
     @Override
@@ -45,19 +45,16 @@ public class RabbitNewMessageEventProcessor implements NewMessageEventProcessor 
 
     private MailEvent createMailEvent(Message newMessage, NewMessageEvent newMessageEvent) {
         Template template = newMessage.getTemplate();
-        Group userGroup = newMessage.getGroup();
         byte[] file = newMessage.getFile();
-        List<User> users = userGroup.getUsers();
-        List<String> emails = users.stream()
-                .map(User::getEmail)
-                .toList();
+        long groupId = newMessage.getGroup().getId();
+        List<String> emails = userRepository.getEmailsByGroup(groupId);
         String messageText = constructMessageText(newMessageEvent, template);
         String fileType = file == null ? null : newMessageEvent.getFileType();
         return new MailEvent(newMessage.getId(), emails, messageText, file, fileType);
     }
 
     private String constructMessageText(NewMessageEvent newMessageEvent, Template template) {
-        Tags data = newMessageEvent.getData();
+        Tags data = newMessageEvent.getTags();
         if (data == null) {
             return template.getTemplateText();
         }

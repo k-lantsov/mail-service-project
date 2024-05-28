@@ -1,2 +1,2 @@
-insert into public.group(name)
+insert into public.groups(name)
 values ('dev');

@@ -5,14 +5,14 @@
 
     <changeSet id="2024-05-27-insert-user-table" author="kostialantsov">
         <preConditions onFail="MARK_RAN">
-            <tableIsEmpty tableName="user"/>
+            <tableIsEmpty tableName="users"/>
         </preConditions>
         <sqlFile path="db/data/insert-user.sql"/>
     </changeSet>
 
     <changeSet id="2024-05-27-insert-group-table" author="kostialantsov">
         <preConditions onFail="MARK_RAN">
-            <tableIsEmpty tableName="group"/>
+            <tableIsEmpty tableName="groups"/>
         </preConditions>
         <sqlFile path="db/data/insert-group.sql"/>
     </changeSet>
