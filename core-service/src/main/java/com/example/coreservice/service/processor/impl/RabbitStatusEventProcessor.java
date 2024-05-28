@@ -1,8 +1,8 @@
 package com.example.coreservice.service.processor.impl;
 
+import com.example.coreservice.model.broker.StatusEvent;
 import com.example.coreservice.service.db.MessageService;
 import com.example.coreservice.service.processor.StatusEventProcessor;
-import com.example.shared.model.StatusEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

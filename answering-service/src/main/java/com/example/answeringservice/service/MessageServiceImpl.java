@@ -1,10 +1,10 @@
 package com.example.answeringservice.service;
 
-import com.example.answeringservice.dto.AnswerMessageDto;
 import com.example.answeringservice.entity.Message;
+import com.example.answeringservice.exception.NoDataException;
+import com.example.answeringservice.model.controller.AnswerMessageDto;
 import com.example.answeringservice.repository.MessageRepository;
 import com.example.answeringservice.util.MessageConverter;
-import com.example.shared.exception.NoDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

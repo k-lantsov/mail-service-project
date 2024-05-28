@@ -1,14 +1,14 @@
 package com.example.coreservice.service.processor.impl;
 
+import com.example.coreservice.config.rabbitmq.RabbitMQProducer;
 import com.example.coreservice.entity.Message;
 import com.example.coreservice.entity.Template;
-import com.example.coreservice.rabbitmq.RabbitMQProducer;
+import com.example.coreservice.model.broker.MailEvent;
+import com.example.coreservice.model.broker.NewMessageEvent;
+import com.example.coreservice.model.broker.Tags;
 import com.example.coreservice.repository.UserRepository;
 import com.example.coreservice.service.db.MessageService;
 import com.example.coreservice.service.processor.NewMessageEventProcessor;
-import com.example.shared.model.MailEvent;
-import com.example.shared.model.NewMessageEvent;
-import com.example.shared.model.Tags;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

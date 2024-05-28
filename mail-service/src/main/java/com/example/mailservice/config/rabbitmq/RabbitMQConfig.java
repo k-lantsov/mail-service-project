@@ -1,6 +1,6 @@
-package com.example.answeringservice.config.rabbitmq;
+package com.example.mailservice.config.rabbitmq;
 
-import com.example.answeringservice.config.properties.RabbitMQProperties;
+import com.example.mailservice.config.properties.RabbitMQProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -43,5 +43,4 @@ public class RabbitMQConfig {
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
     }
-
 }

@@ -1,11 +1,11 @@
 package com.example.answeringservice.controller;
 
 import com.example.answeringservice.config.rabbitmq.RabbitMQProducer;
-import com.example.answeringservice.dto.AnswerMessageDto;
-import com.example.answeringservice.dto.NewMessageDto;
+import com.example.answeringservice.model.broker.NewMessageEvent;
+import com.example.answeringservice.model.controller.AnswerMessageDto;
+import com.example.answeringservice.model.controller.NewMessageDto;
 import com.example.answeringservice.service.MessageService;
 import com.example.answeringservice.util.MessageConverter;
-import com.example.shared.model.NewMessageEvent;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

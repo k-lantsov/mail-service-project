@@ -1,8 +1,8 @@
 package com.example.coreservice.service.db;
 
 import com.example.coreservice.entity.Message;
-import com.example.shared.model.NewMessageEvent;
-import com.example.shared.model.StatusEvent;
+import com.example.coreservice.model.broker.NewMessageEvent;
+import com.example.coreservice.model.broker.StatusEvent;
 
 public interface MessageService {
 

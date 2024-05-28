@@ -1,6 +1,6 @@
 package com.example.answeringservice.controller;
 
-import com.example.shared.exception.NoDataException;
+import com.example.answeringservice.exception.NoDataException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

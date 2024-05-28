@@ -1,8 +1,9 @@
-package com.example.answeringservice.config.rabbitmq;
+package com.example.coreservice.config.rabbitmq;
 
-import com.example.answeringservice.config.properties.RabbitMQProperties;
+import com.example.coreservice.config.properties.RabbitMQProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -44,4 +45,18 @@ public class RabbitMQConfig {
         return rabbitTemplate;
     }
 
+    @Bean
+    public Queue newMessageQueue() {
+        return new Queue("new-message-queue");
+    }
+
+    @Bean
+    public Queue mailQueue() {
+        return new Queue("mail-queue");
+    }
+
+    @Bean
+    public Queue statusQueue() {
+        return new Queue("status-queue");
+    }
 }

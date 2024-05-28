@@ -1,15 +1,18 @@
 package com.example.coreservice.service.db.impl;
 
-import com.example.coreservice.entity.*;
+import com.example.coreservice.entity.FileType;
+import com.example.coreservice.entity.Group;
+import com.example.coreservice.entity.Message;
+import com.example.coreservice.entity.Template;
+import com.example.coreservice.exception.NoDataException;
+import com.example.coreservice.model.broker.NewMessageEvent;
+import com.example.coreservice.model.broker.StatusEvent;
 import com.example.coreservice.repository.FileTypeRepository;
 import com.example.coreservice.repository.GroupRepository;
 import com.example.coreservice.repository.MessageRepository;
 import com.example.coreservice.repository.TemplateRepository;
 import com.example.coreservice.service.db.MessageService;
 import com.example.coreservice.util.JsonConverter;
-import com.example.shared.exception.NoDataException;
-import com.example.shared.model.NewMessageEvent;
-import com.example.shared.model.StatusEvent;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

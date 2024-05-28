@@ -15,8 +15,6 @@ services:
       - ~/.docker-conf/postgres/data/:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - mail-service
 
   broker:
     image: rabbitmq:3.13.2-management-alpine
@@ -32,10 +30,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      - mail-service
 
   core-ms:
+    image: core-ms:1.0.1
     build: core-service
     container_name: core-ms
     restart: on-failure
@@ -43,12 +40,17 @@ services:
     depends_on:
       - postgres
       - broker
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/$POSTGRES_DB
+      - SPRING_RABBITMQ_HOST=broker
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=$RABBITMQ_DEFAULT_USER
+      - SPRING_RABBITMQ_PASSWORD=$RABBITMQ_DEFAULT_PASS
     ports:
       - "8081:8081"
-    networks:
-      - mail-service
 
   answering-ms:
+    image: answering-ms:1.0.1
     build: answering-service
     container_name: answering-ms
     restart: on-failure
@@ -56,23 +58,29 @@ services:
     depends_on:
       - postgres
       - broker
+      - core-ms
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/$POSTGRES_DB
+      - SPRING_RABBITMQ_HOST=broker
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=$RABBITMQ_DEFAULT_USER
+      - SPRING_RABBITMQ_PASSWORD=$RABBITMQ_DEFAULT_PASS
     ports:
       - "8080:8080"
-    networks:
-      - mail-service
 
   mail-ms:
+    image: mail-ms:1.0.1
     build: mail-service
     container_name: mail-ms
     restart: on-failure
     env_file: .env
     depends_on:
       - broker
+      - core-ms
+    environment:
+      - SPRING_RABBITMQ_HOST=broker
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=$RABBITMQ_DEFAULT_USER
+      - SPRING_RABBITMQ_PASSWORD=$RABBITMQ_DEFAULT_PASS
     ports:
       - "8082:8082"
-    networks:
-      - mail-service
-
-networks:
-  mail-service:
-    driver: bridge

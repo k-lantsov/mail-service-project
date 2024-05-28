@@ -1,8 +1,8 @@
 package com.example.mailservice.service;
 
-import com.example.mailservice.rabbitmq.RabbitMQProducer;
-import com.example.shared.model.MailEvent;
-import com.example.shared.model.StatusEvent;
+import com.example.mailservice.config.rabbitmq.RabbitMQProducer;
+import com.example.mailservice.model.broker.MailEvent;
+import com.example.mailservice.model.broker.StatusEvent;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;

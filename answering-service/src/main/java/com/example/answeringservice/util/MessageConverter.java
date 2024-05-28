@@ -1,9 +1,9 @@
 package com.example.answeringservice.util;
 
-import com.example.answeringservice.dto.AnswerMessageDto;
-import com.example.answeringservice.dto.NewMessageDto;
 import com.example.answeringservice.entity.Message;
-import com.example.shared.model.NewMessageEvent;
+import com.example.answeringservice.model.broker.NewMessageEvent;
+import com.example.answeringservice.model.controller.AnswerMessageDto;
+import com.example.answeringservice.model.controller.NewMessageDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

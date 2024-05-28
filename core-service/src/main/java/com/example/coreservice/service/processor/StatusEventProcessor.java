@@ -1,6 +1,7 @@
 package com.example.coreservice.service.processor;
 
-import com.example.shared.model.StatusEvent;
+
+import com.example.coreservice.model.broker.StatusEvent;
 
 public interface StatusEventProcessor {
 
