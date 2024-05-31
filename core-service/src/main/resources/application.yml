@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: core-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mail
+    username: postgres
+    password: 1111
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: pass
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        hbm2ddl:
+          auto: validate
+    show-sql: true
+
+  liquibase:
+    change-log: db/changelog/main-changelog.xml

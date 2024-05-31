@@ -1,0 +1,28 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-template-table" author="kostialantsov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="template"/>
+            </not>
+        </preConditions>
+        <createTable tableName="template">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="template_text" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="drop-template-table" author="kostialantsov">
+        <rollback>
+            <dropTable tableName="template"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
